@@ -12,6 +12,7 @@
 <div class="signal" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
 <h1>DISTORTED FREQUENCY</h1>
 <div class="sub">INCOMING TRANSMISSION</div>
+<div id="recipient" class="sub"></div>
 <button id="tune" type="button">TUNE IN</button>
 <div id="status" aria-live="polite">STANDBY</div>
 <audio id="audio" preload="metadata"><source src="ANIQUILANDO MIEDOS.m4a" type="audio/mp4"></audio>
@@ -19,7 +20,7 @@
 <div class="footer">UNA CREACIÓN DE DISTORTED STUDIOS · ANIQUILANDO MIEDOS</div>
 </main>
 <script>
-const a=document.getElementById('audio'),b=document.getElementById('tune'),s=document.getElementById('status'),e=document.getElementById('end');
+const guest=new URLSearchParams(window.location.search).get('guest'),r=document.getElementById('recipient');if(guest&&r){r.textContent='RECIPIENT VERIFIED · '+guest.toUpperCase();}const a=document.getElementById('audio'),b=document.getElementById('tune'),s=document.getElementById('status'),e=document.getElementById('end');
 b.addEventListener('click',async()=>{try{if(a.paused){await a.play();b.textContent='PAUSE';s.textContent='TRANSMISSION ACTIVE'}else{a.pause();b.textContent='TUNE IN';s.textContent='TRANSMISSION PAUSED'}}catch(err){s.textContent='AUDIO COULD NOT START'}});
 a.addEventListener('ended',()=>{b.textContent='TUNE IN AGAIN';s.textContent='TRANSMISSION ENDED';e.style.display='block'});
 a.addEventListener('timeupdate',()=>{if(!a.paused&&!a.ended){const m=Math.floor(a.currentTime/60),sec=String(Math.floor(a.currentTime%60)).padStart(2,'0');s.textContent=`TRANSMISSION ACTIVE · ${m}:${sec}`}});
